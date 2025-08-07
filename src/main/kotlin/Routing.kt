@@ -2,6 +2,7 @@ package com.example
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.example.auth.authRoutes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -15,10 +16,18 @@ import io.ktor.server.sessions.*
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.*
 
+/**
+ *
+ * Definise sve rute unutar aplikacije
+ */
+
+
 fun Application.configureRouting() {
     routing {
         get("/") {
             call.respondText("Hello World!")
         }
+
+        authRoutes()
     }
 }
