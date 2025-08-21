@@ -10,7 +10,7 @@ import java.util.UUID
  *
  * @property fullName  ime i prezime korisnika
  * @property id  id pacijenta u tabeli
- * @property user povezani korisnik iz tabele User
+ * @see user povezani korisnik iz tabele User
  * @property selectedDoctor  id izabranog doktora kog korisnik bira
  * @property selectedHospital  id izabranog zdravstvenog centra gde ce se nalaziti korisnikov zdravstveni kartor
  */

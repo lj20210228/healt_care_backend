@@ -3,6 +3,9 @@ package com.example
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.example.auth.authRoutes
+import com.example.auth.repository.AuthRepositoryImplementation
+import com.example.auth.service.AuthServiceImplementation
+import com.example.security.JwtConfig
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -23,11 +26,14 @@ import org.jetbrains.exposed.sql.*
 
 
 fun Application.configureRouting() {
+
     routing {
         get("/") {
             call.respondText("Hello World!")
         }
 
-        authRoutes()
+        authRoutes(repository = AuthRepositoryImplementation(AuthServiceImplementation(
+            jwtService = JwtConfig.instance
+        )))
     }
 }
