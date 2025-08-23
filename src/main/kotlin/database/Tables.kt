@@ -64,7 +64,6 @@ object PatientTable: Table("patient"){
     val fullName=varchar("full_name",256)
     val selectedDoctor=reference("doctor_id", DoctorTable.id, onDelete = ReferenceOption.CASCADE).nullable()
     val hospitalId=reference("hospital_id", HospitalTable.id, onDelete = ReferenceOption.CASCADE).nullable()
-
 }
 
 

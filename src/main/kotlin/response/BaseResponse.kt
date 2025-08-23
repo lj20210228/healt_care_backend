@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 /**
  * Model za sve API odgovore
  *
- * @param T top podataka koji se vraca u odgovoru
+ * @param T tip podataka koji se vraca u odgovoru
  * @property statusCode HTTP status kod koji opisuje rezultat operacije
  */
 @Serializable
