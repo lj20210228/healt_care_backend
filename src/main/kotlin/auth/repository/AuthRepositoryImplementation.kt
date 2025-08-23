@@ -22,14 +22,13 @@ class AuthRepositoryImplementation(val authService: AuthService): AuthRepository
 
         val isUserExist=authService.findUserByEmail(user.email)
         println("isUserExist $isUserExist")
-       return if (isUserExist==null){
+        return if (isUserExist==null){
            val userFromServer=authService.registerUser(user)
            if(userFromServer!=null){
                BaseResponse.SuccessResponse(data = userFromServer, message = "Uspešna registracija")
-           }else BaseResponse.ErrorResponse("Neuspešna registracija")
-        }else
-        {
-            BaseResponse.ErrorResponse("Korisnik sa datim email-om već postoji")
+           }else BaseResponse.ErrorResponse(message = "Neuspešna registracija")
+        }else {
+            BaseResponse.ErrorResponse(message = "Korisnik sa datim email-om već postoji")
         }
     }
 
@@ -41,7 +40,7 @@ class AuthRepositoryImplementation(val authService: AuthService): AuthRepository
         return if(userFromServer!=null){
             BaseResponse.SuccessResponse(data = userFromServer, message = "Korisnik ulogovan")
         }else{
-            BaseResponse.ErrorResponse("Neuspešno ulogovanje")
+            BaseResponse.ErrorResponse(message = "Neuspešno ulogovanje")
         }
     }
 }

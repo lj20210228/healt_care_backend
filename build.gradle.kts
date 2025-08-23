@@ -10,7 +10,9 @@ version = "0.0.1"
 application {
     mainClass = "io.ktor.server.netty.EngineMain"
 }
-
+tasks.test{
+    useJUnitPlatform()
+}
 dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.serialization.kotlinx.json)
@@ -25,7 +27,18 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation(libs.kotlin.test.junit)
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.24") // ili verzija koja ide uz tvoj Kotlin
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.24")
+    // Mockito
+
+// Coroutines test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+
+
+    testImplementation("io.mockk:mockk:1.13.9")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+
 
     implementation("org.jetbrains.exposed:exposed-core:0.52.0")
     implementation("org.jetbrains.exposed:exposed-dao:0.52.0")
