@@ -2,31 +2,32 @@ package com.example.response
 
 import io.ktor.http.HttpStatusCode
 import kotlinx.serialization.Serializable
-
-
 /**
- * Model za sve API odgovore
+ * Model za API odgovore koji vraćaju listu
  *
  * @param T tip podataka koji se vraca u odgovoru
  * @property statusCode HTTP status kod koji opisuje rezultat operacije
  */
 @Serializable
-sealed class BaseResponse< T>(
+sealed class ListResponse< out T>(
     open val statusCode: Int= HttpStatusCode.OK.value
 ) {
+
     /**
      * Predstavlja uspešan odgovor API-ja.
      *
      * @param T Tip podataka koji se vraća u odgovoru.
-     * @property data Podaci vraćeni od strane API-ja (mogu biti `null`).
-     * @property message Opciona poruka (npr. "Uspešno kreiran korisnik").
+     * @property data Lista vraćena od strane API-ja (mogu biti `null`).
+     * @property message Opciona poruka (npr. "Uspešno pronađeno").
      */
 
     @Serializable
-    data class SuccessResponse<T>(
-        val data:@Serializable T? = null,
+    data class SuccessResponse< T>(
+        val data: @Serializable List<T?>?=null,
         val message: String? = null,
-    ): BaseResponse<T>(HttpStatusCode.OK.value)
+    ) : ListResponse< T>(HttpStatusCode.OK.value)
+
+
 
     /**
      * Predstavlja neuspešan odgovor API-ja.
@@ -41,6 +42,6 @@ sealed class BaseResponse< T>(
         val exception: String?= null,
         val message: String? = null,
 
-        ) : BaseResponse<T>(HttpStatusCode.BadRequest.value)
+        ) : ListResponse<T>(HttpStatusCode.BadRequest.value)
 
 }

@@ -3,6 +3,8 @@ package com.example
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.example.auth.AuthResponse
+import com.example.domain.Hospital
+import com.example.response.BaseResponse
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -14,9 +16,13 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import org.jetbrains.exposed.sql.*
+import kotlin.reflect.typeOf
 
 fun Application.configureSerialization() {
 
@@ -36,6 +42,14 @@ fun Application.configureSerialization() {
                             actualClass = AuthResponse::class,
                             actualSerializer = AuthResponse.serializer()
                         )
+                        polymorphic(
+                            Any::class,
+                            actualClass = Hospital::class,
+                            actualSerializer = Hospital.serializer()
+                        )
+
+
+
                     }
                 }
 

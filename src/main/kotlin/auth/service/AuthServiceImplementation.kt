@@ -6,6 +6,7 @@ import com.example.auth.RegisterRequest
 import com.example.auth.Role
 import com.example.database.DatabaseFactory
 import com.example.database.DoctorTable
+import com.example.database.HospitalTable
 import com.example.database.PatientTable
 import com.example.database.UserTable
 import com.example.domain.User
@@ -87,6 +88,7 @@ class AuthServiceImplementation(private val jwtService: JwtConfig): AuthService 
                     }
                 }
             }
+
         }
 
         //Generisanje tokena
