@@ -12,6 +12,7 @@ import com.example.database.UserTable
 import com.example.domain.User
 import com.example.security.JwtConfig
 import com.example.security.hashPassword
+import org.jetbrains.exposed.sql.Locate
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.SqlExpressionBuilder
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -22,6 +23,7 @@ import org.jetbrains.exposed.sql.selectAll
 
 
 import org.jetbrains.exposed.sql.statements.InsertStatement
+import java.util.Locale
 import java.util.UUID
 
 /**
@@ -73,6 +75,7 @@ class AuthServiceImplementation(private val jwtService: JwtConfig): AuthService 
                             it[maxPatients]=params.maxPatients
                             it[DoctorTable.hospitalId]= UUID.fromString(params.hospital)
                             it[isGeneral]=params.isGeneral?:false
+                            it[currentPatients]=0
 
                         }
                     }
