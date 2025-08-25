@@ -66,7 +66,7 @@ class DoctorServiceImplementation: DoctorService {
     override suspend fun editDoctorProfile(request: EditDoctorRequest): Doctor? {
         var doctor: ResultRow?=null
         DatabaseFactory.dbQuery {
-            DoctorTable.update({DoctorTable.userId eq UUID.fromString(request.userId)}){
+            DoctorTable.update({DoctorTable.id eq UUID.fromString(request.userId)}){
                 if (request.maxPatients!=null){
                     it[maxPatients]=request.maxPatients
                 }
@@ -75,7 +75,7 @@ class DoctorServiceImplementation: DoctorService {
                 }
             }
            doctor= DoctorTable.selectAll().where{
-                DoctorTable.userId eq UUID.fromString(request.userId)
+                DoctorTable.id eq UUID.fromString(request.userId)
             }.singleOrNull()
 
         }
