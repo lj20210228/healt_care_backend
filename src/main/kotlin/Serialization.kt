@@ -3,6 +3,7 @@ package com.example
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.example.auth.AuthResponse
+import com.example.domain.Doctor
 import com.example.domain.Hospital
 import com.example.response.BaseResponse
 import io.ktor.http.*
@@ -46,6 +47,11 @@ fun Application.configureSerialization() {
                             Any::class,
                             actualClass = Hospital::class,
                             actualSerializer = Hospital.serializer()
+                        )
+                        polymorphic(
+                            Any::class,
+                            actualClass = Doctor::class,
+                            actualSerializer = Doctor.serializer()
                         )
 
 
