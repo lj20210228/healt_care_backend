@@ -27,6 +27,7 @@ object UserTable: Table("users")
  * Tabela u kojoj se čuvaju podaci o lekaru
  *
  * @property id Id lekara
+ * @property userId Spoljni ključ ka tabeli User
  * @property fullName Ime i prezime lekara
  * @property specialization Specijalizacija lekara
  * @property hospitalId Spoljni ključ ka tabeli HospitalTable, tj Id bolnice kojoj lekar pripada,
@@ -39,6 +40,7 @@ object UserTable: Table("users")
 object DoctorTable: Table("doctor"){
     val id=uuid("id").autoGenerate()
     override val primaryKey= PrimaryKey(id)
+    val userId=reference("user_id", UserTable.id, onDelete = ReferenceOption.CASCADE)
     val fullName=varchar("full_name",256)
     val specialization=varchar("specialization",256)
     val hospitalId=reference("hospital_id", HospitalTable.id, onDelete = ReferenceOption.CASCADE).nullable()
@@ -51,6 +53,8 @@ object DoctorTable: Table("doctor"){
  * Tabela gde se nalaze podaci o pacijentima
  *
  * @property id Id pacijenta
+ *  @property userId Spoljni ključ ka tabeli User
+ *
  * @property fullName Ime i prezime pacijenta
  * @property selectedDoctor Id izabranog lekara, spoljni ključ ka tabeli DoctorTable,
  * prilikom brisanja lekara iz tabele DoctorTable briše se i id iz ove kolone
@@ -61,6 +65,8 @@ object DoctorTable: Table("doctor"){
 object PatientTable: Table("patient"){
     val id=uuid("id").autoGenerate()
     override val primaryKey= PrimaryKey(id)
+    val userId=reference("user_id", UserTable.id, onDelete = ReferenceOption.CASCADE)
+
     val fullName=varchar("full_name",256)
     val selectedDoctor=reference("doctor_id", DoctorTable.id, onDelete = ReferenceOption.CASCADE).nullable()
     val hospitalId=reference("hospital_id", HospitalTable.id, onDelete = ReferenceOption.CASCADE).nullable()

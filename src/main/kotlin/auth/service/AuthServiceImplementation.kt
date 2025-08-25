@@ -61,36 +61,41 @@ class AuthServiceImplementation(private val jwtService: JwtConfig): AuthService 
             userId=statement.resultedValues?.get(0)?.get(UserTable.id)
 
         }
-        when(params.role){
-            Role.ROLE_DOCTOR -> {
-                //Ako je korisnik doktor dodaje se u DoctorTable
-                DatabaseFactory.dbQuery {
-                    DoctorTable.insert {
-                        it[fullName]=params.fullName
-                        it[specialization]=params.specialization!!
-                        it[maxPatients]=params.maxPatients
-                        it[DoctorTable.hospitalId]= UUID.fromString(params.hospital)
-                        it[isGeneral]=params.isGeneral?:false
+        if(userId!=null){
+            when(params.role){
+                Role.ROLE_DOCTOR -> {
+                    //Ako je korisnik doktor dodaje se u DoctorTable
+                    DatabaseFactory.dbQuery {
+                        DoctorTable.insert {
+                            it[DoctorTable.userId]=userId!!
+                            it[fullName]=params.fullName
+                            it[specialization]=params.specialization!!
+                            it[maxPatients]=params.maxPatients
+                            it[DoctorTable.hospitalId]= UUID.fromString(params.hospital)
+                            it[isGeneral]=params.isGeneral?:false
 
+                        }
                     }
                 }
-            }
-            Role.ROLE_PATIENT -> {
-                //Ako je korisnik Patient dodaje se u PatientTable
-                val hospitalId = params.hospital?.let { UUID.fromString(it) }
+                Role.ROLE_PATIENT -> {
+                    //Ako je korisnik Patient dodaje se u PatientTable
+                    val hospitalId = params.hospital?.let { UUID.fromString(it) }
 
-                DatabaseFactory.dbQuery {
-                    PatientTable.insert{
-                        it[fullName]=params.fullName
-                        it[selectedDoctor]=if (params.selectedDoctor!=null) UUID.fromString(params.selectedDoctor) else null
-                        it[PatientTable.hospitalId]= hospitalId
+                    DatabaseFactory.dbQuery {
+                        PatientTable.insert{
+                            it[PatientTable.userId]=userId!!
+                            it[fullName]=params.fullName
+                            it[selectedDoctor]=if (params.selectedDoctor!=null) UUID.fromString(params.selectedDoctor) else null
+                            it[PatientTable.hospitalId]= hospitalId
 
+                        }
                     }
                 }
+
             }
 
-        }
 
+        } else return  null
         //Generisanje tokena
         val token=jwtService.createAccessToken(userId.toString())
 
@@ -98,16 +103,10 @@ class AuthServiceImplementation(private val jwtService: JwtConfig): AuthService 
         val user= DatabaseFactory.dbQuery {
             UserTable.selectAll().where{ UserTable.id eq userId!! }.singleOrNull()
         }
+
         val response= rowToResponse(user)
 
         return  response?.copy(token=token)
-
-
-
-
-
-
-
 
 
     }

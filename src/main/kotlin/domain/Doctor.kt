@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  *
  * @property id  Id lekara,
  * @property fullName  ime i prezime lekara
- * @see user  njegovi podaci u user tabeli
+ * @property userId  Referenca na njegove podatke u UserTable
  * @property specialization  ime njegove specijalizacije
  * @property healtCareCenter  id zdravstvenog centra u kome radi
  * @property maxPatients  broj koliko maksimalno ima pacijenata kojima moze biti izabrani lekar
@@ -20,7 +20,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Doctor(
     val id: String,
-    val user: User,
+    val userId: String,
     val fullName: String,
     val specialization: String,
     val healtCareCenter: String,
