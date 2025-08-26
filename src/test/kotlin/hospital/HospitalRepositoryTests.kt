@@ -36,7 +36,7 @@ class HospitalRepositoryTests {
     private lateinit var repository: HospitalRepository
 
     /**
-     * Izvršava se pre svakok testa u klasi
+     * Izvršava se pre svakog testa u klasi
      * Kreira mock za HospitalService koristeći MockK
      * Inicijalizuje AuthRepositoryImplementation sa mockovanim HospitalService
      */

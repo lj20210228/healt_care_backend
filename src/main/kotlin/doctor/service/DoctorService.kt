@@ -46,7 +46,7 @@ interface DoctorService {
      *
      * @return [Doctor] Metoda vraća ažurirane podatke o lekaru
      */
-    suspend fun editCurrentPatients(id: String): Doctor?
+    suspend fun editCurrentPatients(id: String?): Doctor?
 
     /**
      * Funkcija koja vraća sve lekare određene specijaliazcije u nekoj bolnici
@@ -55,7 +55,7 @@ interface DoctorService {
      * @param hospitalId Id bolnice u kojoj tražimo lekare
      * @return [List[Doctor]]
      */
-    suspend fun getDoctorsForSpecialization(specialization: String,hospitalId: String): List<Doctor?>
+    suspend fun getDoctorsForSpecialization(specialization: String,hospitalId: String?): List<Doctor?>
 
 
 }

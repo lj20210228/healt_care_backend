@@ -5,6 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.example.auth.authRoutes
 import com.example.auth.repository.AuthRepositoryImplementation
 import com.example.auth.service.AuthServiceImplementation
+import com.example.doctor.doctorRoutes
+import com.example.doctor.repository.DoctorRepositoryImplementation
+import com.example.doctor.service.DoctorServiceImplementation
 import com.example.hospital_admin.hospitalRoutes
 import com.example.hospital_admin.repository.HospitalRepositoryImplementation
 import com.example.hospital_admin.service.HospitalServiceImplementation
@@ -39,5 +42,6 @@ fun Application.configureRouting() {
             jwtService = JwtConfig.instance
         )))
         hospitalRoutes(repository = HospitalRepositoryImplementation(HospitalServiceImplementation()))
+        doctorRoutes(repository = DoctorRepositoryImplementation(DoctorServiceImplementation()))
     }
 }

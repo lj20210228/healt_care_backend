@@ -91,7 +91,7 @@ class DoctorServiceImplementation: DoctorService {
      * @return [Doctor] Podaci o lekaru nakon ažuriranja
      */
 
-    override suspend fun editCurrentPatients(id: String): Doctor? {
+    override suspend fun editCurrentPatients(id: String?): Doctor? {
         return DatabaseFactory.dbQuery {
             DoctorTable.update({DoctorTable.id eq UUID.fromString(id)}){
                 with(SqlExpressionBuilder){
@@ -116,7 +116,7 @@ class DoctorServiceImplementation: DoctorService {
      */
     override suspend fun getDoctorsForSpecialization(
         specialization: String,
-        hospitalId: String
+        hospitalId: String?
     ): List<Doctor?> {
 
         return DatabaseFactory.dbQuery {
