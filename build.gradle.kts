@@ -12,6 +12,8 @@ application {
 }
 tasks.test{
     useJUnitPlatform()
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
+
 }
 dependencies {
     implementation(libs.ktor.server.core)
@@ -27,11 +29,10 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.ktor.server.config.yaml)
     testImplementation(libs.ktor.server.test.host)
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.24") // ili verzija koja ide uz tvoj Kotlin
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.24")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.24")
-    // Mockito
 
-// Coroutines test
+    // Coroutines test
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
 
 
@@ -39,11 +40,10 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 
-
-    implementation("org.jetbrains.exposed:exposed-core:0.57.0")
-    implementation("org.jetbrains.exposed:exposed-dao:0.57.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.57.0")
-    implementation("org.jetbrains.exposed:exposed-java-time:0.57.0")
+    implementation("org.jetbrains.exposed:exposed-core:0.50.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.50.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.50.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.50.1")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.1")
 
     implementation("com.mysql:mysql-connector-j:8.4.0")
